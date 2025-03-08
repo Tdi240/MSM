@@ -1,22 +1,37 @@
-# imports
 import numpy as np
 import matplotlib.pyplot as plt
 
-# plotting settings
-plt.style.use('seaborn')
+# Set plotting settings
 plt.rcParams['figure.figsize'] = (16, 8)
+plt.rcParams['axes.facecolor'] = 'none'  # Transparent axes background
+plt.rcParams['savefig.facecolor'] = 'none'  # Transparent figure background
 
+# Generate data
 np.random.seed(0)
-mu, sigma = 0, 1 # mean, standard deviation
+mu, sigma = 0, 1  # Mean and standard deviation
 x = np.random.normal(mu, sigma, 1000)
 cum_sum = np.cumsum(x)
-sample_size = np.arange(1, len(x)+1)
-averges = np.divide(cum_sum, sample_size)
+sample_size = np.arange(1, len(x) + 1)
+averages = np.divide(cum_sum, sample_size)
 
-plt.xlabel('Size of a sample', fontsize=16)
-plt.ylabel('Average', fontsize=16)
-plt.axhline(0, ls= '--', c='black', label='mean')
-plt.plot(sample_size, averges,
-         c='r', lw=5, alpha=0.6, label='sample average')
-plt.legend(loc="upper right", frameon=True, prop={'size': 14})
-plt.title('Law of Large Numbers', fontsize=20);
+# Create plot
+fig, ax = plt.subplots()
+ax.set_xlabel('Size of a Sample', fontsize=16)
+ax.set_ylabel('Average', fontsize=16)
+ax.axhline(0, ls='-', c='blue', label='Mean')
+
+# Plot red line as dots
+ax.plot(sample_size, averages, 'ro', markersize=3, alpha=0.7, label='Sample Average')
+
+# Legend settings
+ax.legend(loc="upper right", frameon=False, prop={'size': 14})
+
+# Set transparent background
+fig.patch.set_alpha(0)  # Transparent figure background
+ax.patch.set_alpha(0)  # Transparent axis background
+
+# Title
+plt.title('Law of Large Numbers', fontsize=20)
+
+# Show plot
+plt.show()
